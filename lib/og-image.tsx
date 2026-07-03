@@ -1,9 +1,24 @@
+import { readFile } from 'node:fs/promises'
+import { join } from 'node:path'
 import { ImageResponse } from 'next/og'
 
 export const ogImageSize = { width: 1200, height: 630 } as const
 export const ogImageContentType = 'image/png' as const
 
-export function renderOgImage(eyebrow: string, title: string) {
+let logoSrcPromise: Promise<string> | undefined
+
+async function getLogoSrc(): Promise<string> {
+  if (!logoSrcPromise) {
+    logoSrcPromise = readFile(join(process.cwd(), 'public', 'quackie.png')).then((data) =>
+      `data:image/png;base64,${data.toString('base64')}`,
+    )
+  }
+  return logoSrcPromise
+}
+
+export async function renderOgImage(eyebrow: string, title: string) {
+  const logoSrc = await getLogoSrc()
+
   return new ImageResponse(
     (
       <div
@@ -20,7 +35,7 @@ export function renderOgImage(eyebrow: string, title: string) {
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 28 }}>
-          <span style={{ fontSize: 56 }}>🦆</span>
+          <img src={logoSrc} width={72} height={72} alt="" />
           <span
             style={{
               fontSize: 32,
