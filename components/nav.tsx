@@ -1,14 +1,16 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import Link from 'next/link'
 import { Menu, X } from 'lucide-react'
 
 const navLinks = [
-  { label: 'Features', href: '#features' },
-  { label: 'Personas', href: '#personas' },
-  { label: 'How it works', href: '#how-it-works' },
-  { label: 'Install', href: '#install' },
-  { label: 'Roadmap', href: '#roadmap' },
+  { label: 'Features', href: '/features' },
+  { label: 'Personas', href: '/personas' },
+  { label: 'How it works', href: '/how-it-works' },
+  { label: 'Install', href: '/install' },
+  { label: 'Roadmap', href: '/roadmap' },
+  { label: 'FAQ', href: '/faq' },
 ]
 
 export function Nav() {
@@ -31,11 +33,7 @@ export function Nav() {
     >
       <div className="max-w-6xl mx-auto px-5 flex items-center justify-between">
         {/* Logo */}
-        <a
-          href="#"
-          className="flex items-center gap-2 group"
-          aria-label="Quackie home"
-        >
+        <Link href="/" className="flex items-center gap-2 group" aria-label="Quackie home">
           <span className="text-xl leading-none select-none" aria-hidden="true">
             🦆
           </span>
@@ -45,31 +43,31 @@ export function Nav() {
           >
             Quackie
           </span>
-        </a>
+        </Link>
 
         {/* Desktop nav */}
         <nav className="hidden md:flex items-center gap-6" aria-label="Main navigation">
           {navLinks.map((link) => (
-            <a
+            <Link
               key={link.href}
               href={link.href}
               className="text-sm text-muted-foreground hover:text-foreground transition-colors"
               style={{ fontFamily: 'var(--font-inter)' }}
             >
               {link.label}
-            </a>
+            </Link>
           ))}
         </nav>
 
         {/* CTA */}
         <div className="hidden md:flex items-center gap-3">
-          <a
-            href="#install"
+          <Link
+            href="/install"
             className="px-4 py-2 rounded-md text-sm font-medium bg-amber text-amber-foreground hover:bg-amber/90 transition-colors"
             style={{ fontFamily: 'var(--font-space-grotesk)', color: '#0a0a0f' }}
           >
             Get Quackie
-          </a>
+          </Link>
         </div>
 
         {/* Mobile hamburger */}
@@ -88,23 +86,23 @@ export function Nav() {
         <div className="md:hidden bg-[#0d0d16]/95 backdrop-blur-md border-t border-white/[0.06]">
           <nav className="max-w-6xl mx-auto px-5 py-4 flex flex-col gap-4">
             {navLinks.map((link) => (
-              <a
+              <Link
                 key={link.href}
                 href={link.href}
                 className="text-sm text-muted-foreground hover:text-foreground transition-colors py-1"
                 onClick={() => setMenuOpen(false)}
               >
                 {link.label}
-              </a>
+              </Link>
             ))}
-            <a
-              href="#install"
+            <Link
+              href="/install"
               className="mt-2 w-full text-center px-4 py-2.5 rounded-md text-sm font-medium bg-amber"
               style={{ color: '#0a0a0f' }}
               onClick={() => setMenuOpen(false)}
             >
               Get Quackie
-            </a>
+            </Link>
           </nav>
         </div>
       )}

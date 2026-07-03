@@ -1,6 +1,8 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
 import { Space_Grotesk, Inter, JetBrains_Mono } from 'next/font/google'
+import { buildSoftwareApplicationJsonLd } from '@/lib/structured-data'
+import { SITE_DESCRIPTION, SITE_NAME, SITE_TAGLINE, SITE_URL, TWITTER_HANDLE } from '@/lib/site'
 import './globals.css'
 
 const spaceGrotesk = Space_Grotesk({
@@ -22,20 +24,42 @@ const jetbrainsMono = JetBrains_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'Quackie — Personality-first commit rewrites for VS Code',
-  description:
-    'Quackie is a VS Code extension that rewrites your Git commit messages through 22 bundled personas. Install once. Pick a persona. Type "fix validation" — get "🐄 fix: convince validation some manners".',
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: `${SITE_NAME} — Personality-first commit rewrites for VS Code`,
+    template: `%s — ${SITE_NAME}`,
+  },
+  description: SITE_DESCRIPTION,
   generator: 'v0.app',
   keywords: ['VS Code extension', 'Git commit', 'commit messages', 'developer tools', 'Cursor'],
+  applicationName: SITE_NAME,
+  authors: [{ name: SITE_NAME }],
+  creator: SITE_NAME,
+  publisher: SITE_NAME,
+  alternates: {
+    canonical: '/',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+    },
+  },
   openGraph: {
-    title: 'Quackie — Personality-first commit rewrites for VS Code',
-    description: 'Your commits. Their personality.',
+    siteName: SITE_NAME,
+    title: `${SITE_NAME} — Personality-first commit rewrites for VS Code`,
+    description: SITE_TAGLINE,
+    url: SITE_URL,
     type: 'website',
+    locale: 'en_US',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Quackie — Personality-first commit rewrites for VS Code',
-    description: 'Your commits. Their personality.',
+    site: TWITTER_HANDLE,
+    title: `${SITE_NAME} — Personality-first commit rewrites for VS Code`,
+    description: SITE_TAGLINE,
   },
 }
 
@@ -49,12 +73,18 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const softwareApplicationJsonLd = buildSoftwareApplicationJsonLd()
+
   return (
     <html
       lang="en"
       className={`bg-background ${spaceGrotesk.variable} ${inter.variable} ${jetbrainsMono.variable}`}
     >
       <body className="antialiased">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareApplicationJsonLd) }}
+        />
         {children}
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>

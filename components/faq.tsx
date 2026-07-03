@@ -3,35 +3,9 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Plus } from 'lucide-react'
+import { faqs, type FaqItem as FaqItemData } from '@/lib/faqs'
 
-const faqs = [
-  {
-    q: 'Is Quackie a commit message generator?',
-    a: 'No. It\'s a personality runtime. Commits are the first integration target. Quackie rewrites what you write — it doesn\'t generate from nothing.',
-  },
-  {
-    q: 'Do I need persona files in my repo?',
-    a: 'No. All 22 personas ship bundled inside the extension. Zero config files committed to your project.',
-  },
-  {
-    q: 'Does it work in Cursor?',
-    a: 'Yes. Cursor supports VS Code extensions including Git integration. Install the VSIX the same way.',
-  },
-  {
-    q: 'Will it overwrite my edits?',
-    a: 'Not if you manually changed a generated commit. Quackie enters a frozen state until you clear the input or trigger Rewrite Now.',
-  },
-  {
-    q: 'Does it use AI right now?',
-    a: 'v0.1 ships with a deterministic mock rewrite service. Real LLM backend is planned for v0.2.',
-  },
-  {
-    q: 'Conventional Commits — preserved?',
-    a: 'Yes. Semantic meaning and format are preserved. One emoji prefix is added. Max 72 characters enforced.',
-  },
-]
-
-function FaqItem({ item, index }: { item: (typeof faqs)[0]; index: number }) {
+function FaqItem({ item, index }: { item: FaqItemData; index: number }) {
   const [open, setOpen] = useState(false)
 
   return (
@@ -104,7 +78,7 @@ export function FAQ() {
 
         <div className="rounded-xl border border-white/[0.07] bg-card px-6">
           {faqs.map((faq, i) => (
-            <FaqItem key={faq.q} item={faq} index={i} />
+            <FaqItem key={faq.id} item={faq} index={i} />
           ))}
         </div>
       </div>
