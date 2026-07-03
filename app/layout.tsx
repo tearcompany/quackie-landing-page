@@ -2,7 +2,15 @@ import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
 import { Space_Grotesk, Inter, JetBrains_Mono } from 'next/font/google'
 import { buildSoftwareApplicationJsonLd } from '@/lib/structured-data'
-import { SITE_DESCRIPTION, SITE_NAME, SITE_TAGLINE, SITE_URL, TWITTER_HANDLE } from '@/lib/site'
+import {
+  OG_IMAGE,
+  SITE_DESCRIPTION,
+  SITE_FULL_TITLE,
+  SITE_NAME,
+  SITE_TAGLINE,
+  SITE_URL,
+  TWITTER_HANDLE,
+} from '@/lib/site'
 import './globals.css'
 
 const spaceGrotesk = Space_Grotesk({
@@ -26,7 +34,7 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: `${SITE_NAME} — Personality-first commit rewrites for VS Code`,
+    default: SITE_FULL_TITLE,
     template: `%s — ${SITE_NAME}`,
   },
   description: SITE_DESCRIPTION,
@@ -49,17 +57,19 @@ export const metadata: Metadata = {
   },
   openGraph: {
     siteName: SITE_NAME,
-    title: `${SITE_NAME} — Personality-first commit rewrites for VS Code`,
+    title: SITE_FULL_TITLE,
     description: SITE_TAGLINE,
     url: SITE_URL,
     type: 'website',
     locale: 'en_US',
+    images: [OG_IMAGE],
   },
   twitter: {
     card: 'summary_large_image',
     site: TWITTER_HANDLE,
-    title: `${SITE_NAME} — Personality-first commit rewrites for VS Code`,
+    title: SITE_FULL_TITLE,
     description: SITE_TAGLINE,
+    images: [OG_IMAGE.url],
   },
 }
 
