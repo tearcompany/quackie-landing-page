@@ -16,5 +16,5 @@ export const OG_IMAGE = {
   alt: 'Quackie — Your commits. Their personality.',
 } as const
 export const SITE_DESCRIPTION =
-  'Quackie is a VS Code and Cursor extension that rewrites your Git commit messages through 22 bundled personas. Install once. Pick a persona. Zero workspace setup.'
+  'Quackie is a VS Code and Cursor extension that rewrites your Git commit messages through 30 bundled personas. Install once. Pick a persona. Zero workspace setup.'
 export const TWITTER_HANDLE = '@quackie_dev'

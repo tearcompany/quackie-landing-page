@@ -72,7 +72,7 @@ export function Hero() {
                 VS Code &amp; Cursor
               </span>
               <span className="px-2.5 py-1 rounded-md text-xs font-mono bg-amber/10 text-amber border border-amber/20">
-                22 personas included
+                30 personas included
               </span>
             </div>
 
@@ -90,7 +90,7 @@ export function Hero() {
               className="text-lg text-muted-foreground leading-relaxed max-w-[480px]"
               style={{ fontFamily: 'var(--font-inter)' }}
             >
-              Quackie is a VS Code extension that rewrites your Git commit messages through 22 bundled personas — dry seniors, sarcastic ducks, grim doomers, wise wizards, and more. Install once. Works in any repo.
+              Quackie is a VS Code extension that rewrites your Git commit messages through 30 bundled personas — dry seniors, sarcastic ducks, grim doomers, wise wizards, startup cowboys, and more. Install once. Works in any repo.
             </p>
 
             {/* One-liner subheadline */}

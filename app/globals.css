@@ -24,6 +24,8 @@
   --color-amber-foreground: var(--amber-foreground);
   --color-teal: var(--teal);
   --color-teal-foreground: var(--teal-foreground);
+  --color-violet: var(--violet);
+  --color-violet-foreground: var(--violet-foreground);
   --color-surface: var(--surface);
   --color-surface-foreground: var(--surface-foreground);
   --color-destructive: var(--destructive);
@@ -61,6 +63,8 @@
   --amber-foreground: #0a0a0f;
   --teal: #2dd4bf;
   --teal-foreground: #0a0a0f;
+  --violet: #a78bfa;
+  --violet-foreground: #0a0a0f;
   --surface: #13131c;
   --surface-foreground: #f0ede8;
   --destructive: oklch(0.704 0.191 22.216);
@@ -110,6 +114,9 @@
 }
 .glow-teal {
   box-shadow: 0 0 24px rgba(45, 212, 191, 0.2), 0 0 8px rgba(45, 212, 191, 0.12);
+}
+.glow-violet {
+  box-shadow: 0 0 24px rgba(167, 139, 250, 0.2), 0 0 8px rgba(167, 139, 250, 0.12);
 }
 
 /* Typing cursor */

@@ -36,7 +36,7 @@ const features = [
   {
     icon: Package,
     title: 'Bundled personas',
-    body: '22 personalities included. No personas/ folder in your project.',
+    body: '30 personalities included. No personas/ folder in your project.',
   },
   {
     icon: Plug,
