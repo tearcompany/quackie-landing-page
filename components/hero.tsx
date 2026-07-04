@@ -109,7 +109,7 @@ export function Hero() {
             {/* CTAs */}
             <div className="flex flex-wrap gap-3 pt-1">
               <a
-                href="/quackie-0.2.0.vsix"
+                href="/quackie-0.2.3.vsix"
                 download
                 className="flex items-center gap-2 px-5 py-3 rounded-md text-sm font-semibold bg-amber hover:bg-amber/90 transition-colors glow-amber-sm"
                 style={{ color: '#0a0a0f', fontFamily: 'var(--font-space-grotesk)' }}
