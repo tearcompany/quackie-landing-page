@@ -4,8 +4,9 @@ import OpenAI from 'openai'
 export const runtime = 'nodejs'
 
 const DEFAULT_PROMPT_ID = 'pmpt_6a47dda639808194877bc3e2d961224307ddfd2442c27bfb'
-const DEFAULT_PROMPT_VERSION = '16'
+const DEFAULT_PROMPT_VERSION = '18'
 const MAX_TEXT_LENGTH = 2000
+const MAX_SYSTEM_PROMPT_LENGTH = 20000
 
 interface RewriteRequestBody {
   persona: string
@@ -13,6 +14,7 @@ interface RewriteRequestBody {
   text: string
   personaName?: string
   personaEmoji?: string
+  personaSystemPrompt?: string
   personaMetadata?: Record<string, unknown>
 }
 
@@ -33,12 +35,21 @@ function parseBody(value: unknown): RewriteRequestBody | undefined {
     return undefined
   }
 
+  if (
+    typeof body.personaSystemPrompt === 'string' &&
+    body.personaSystemPrompt.length > MAX_SYSTEM_PROMPT_LENGTH
+  ) {
+    return undefined
+  }
+
   return {
     persona: body.persona,
     type: body.type,
     text: body.text,
     personaName: typeof body.personaName === 'string' ? body.personaName : undefined,
     personaEmoji: typeof body.personaEmoji === 'string' ? body.personaEmoji : undefined,
+    personaSystemPrompt:
+      typeof body.personaSystemPrompt === 'string' ? body.personaSystemPrompt : undefined,
     personaMetadata:
       body.personaMetadata && typeof body.personaMetadata === 'object'
         ? (body.personaMetadata as Record<string, unknown>)
@@ -52,6 +63,8 @@ function buildPromptVariables(body: RewriteRequestBody): Record<string, string> 
     input_text: body.text,
     persona_name: body.personaName ?? body.persona,
     persona_emoji: body.personaEmoji ?? '',
+    persona_system_prompt: body.personaSystemPrompt ?? '',
+    persona_metadata_json: JSON.stringify(body.personaMetadata ?? {}),
   }
 }
 
