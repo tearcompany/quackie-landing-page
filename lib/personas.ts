@@ -1,5 +1,5 @@
 /**
- * Quackie personas — all 30 bundled personalities across three packs.
+ * Quackie personas — all 40 bundled personalities across three packs.
  * Each persona ships inside the extension. The extension knows only
  * `id`, `name`, and `emoji` — prompts and humor rules live in persona data.
  * Generated from the source persona.yaml / system_prompt.md files —
@@ -221,6 +221,33 @@ export const personas: Persona[] = [
   },
   // ── Archetype pack — developer moods & situations ───
   {
+    id: 'api-whisperer',
+    emoji: '🧩',
+    name: 'API Whisperer',
+    pack: 'archetype',
+    voice: 'Designs APIs people enjoy using',
+    exampleInput: 'fix: improve payment retry',
+    exampleOutput: '🧩 fix(payment): shape the retry into something callers trust',
+  },
+  {
+    id: 'bug-hunter',
+    emoji: '🔬',
+    name: 'Bug Hunter',
+    pack: 'archetype',
+    voice: 'Relentlessly tracks the real root cause',
+    exampleInput: 'fix: improve payment retry',
+    exampleOutput: '🔬 fix(payment): corner the retry bug and confirm the fix',
+  },
+  {
+    id: 'documentation-monk',
+    emoji: '📚',
+    name: 'Documentation Monk',
+    pack: 'archetype',
+    voice: 'Values clarity above cleverness',
+    exampleInput: 'fix: improve payment retry',
+    exampleOutput: '📚 fix(payment): write down why the retry finally behaves',
+  },
+  {
     id: 'friday-deploy-survivor',
     emoji: '🍺',
     name: 'Friday Deploy Survivor',
@@ -228,6 +255,24 @@ export const personas: Persona[] = [
     voice: 'Cautious about risky deployments',
     exampleInput: 'fix: update payment flow',
     exampleOutput: '🍺 fix(payment): patch it, then triple-check before 5pm',
+  },
+  {
+    id: 'git-kraken',
+    emoji: '🐙',
+    name: 'Git Kraken',
+    pack: 'archetype',
+    voice: 'Master of branches, rebases and history',
+    exampleInput: 'fix: improve payment retry',
+    exampleOutput: '🐙 fix(payment): drag the retry history back into shape',
+  },
+  {
+    id: 'incident-commander',
+    emoji: '🧯',
+    name: 'Incident Commander',
+    pack: 'archetype',
+    voice: 'Calm under pressure. Restores order during production incidents',
+    exampleInput: 'fix: improve payment retry',
+    exampleOutput: '🧯 fix(payment): contain the retry before it pages anyone',
   },
   {
     id: 'legacy-whisperer',
@@ -246,6 +291,33 @@ export const personas: Persona[] = [
     voice: 'Obsessed with performance',
     exampleInput: 'fix: update payment flow',
     exampleOutput: '👺 fix(payment): shave two allocations off the payment path',
+  },
+  {
+    id: 'platform-engineer',
+    emoji: '🛰️',
+    name: 'Platform Engineer',
+    pack: 'archetype',
+    voice: 'Builds reliable foundations',
+    exampleInput: 'fix: improve payment retry',
+    exampleOutput: '🛰️ fix(payment): let the platform retry so nobody has to',
+  },
+  {
+    id: 'qa-alchemist',
+    emoji: '🧪',
+    name: 'QA Alchemist',
+    pack: 'archetype',
+    voice: 'Turns edge cases into confidence',
+    exampleInput: 'fix: improve payment retry',
+    exampleOutput: '🧪 fix(payment): poke the retry until it stops flinching',
+  },
+  {
+    id: 'race-condition-detective',
+    emoji: '🕵️',
+    name: 'Race Condition Detective',
+    pack: 'archetype',
+    voice: 'Suspicious of timing and concurrency',
+    exampleInput: 'fix: improve payment retry',
+    exampleOutput: '🕵️ fix(payment): catch the retry racing itself',
   },
   {
     id: 'refactor-monk',
@@ -291,6 +363,24 @@ export const personas: Persona[] = [
     voice: 'Moves fast, ships fast, accepts calculated risk',
     exampleInput: 'fix: update payment flow',
     exampleOutput: '🤠 fix(payment): ship the payment patch, worry later',
+  },
+  {
+    id: 'systems-architect',
+    emoji: '🏗️',
+    name: 'Systems Architect',
+    pack: 'archetype',
+    voice: 'Sees systems before components',
+    exampleInput: 'fix: improve payment retry',
+    exampleOutput: '🏗️ fix(payment): redesign the retry so it fits the whole system',
+  },
+  {
+    id: 'tech-debt-slayer',
+    emoji: '🪓',
+    name: 'Tech Debt Slayer',
+    pack: 'archetype',
+    voice: 'Cuts complexity without mercy',
+    exampleInput: 'fix: improve payment retry',
+    exampleOutput: '🪓 fix(payment): put the janky retry logic out of its misery',
   },
 ]
 

@@ -18,7 +18,7 @@ export const faqs: FaqItem[] = [
   {
     id: 'persona-files-in-repo',
     q: 'Do I need persona files in my repo?',
-    a: 'No. All 30 personas ship bundled inside the extension. Zero config files committed to your project.',
+    a: 'No. All 40 personas ship bundled inside the extension. Zero config files committed to your project.',
   },
   {
     id: 'cursor-support',

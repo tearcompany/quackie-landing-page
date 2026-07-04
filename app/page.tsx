@@ -3,6 +3,7 @@ import { Hero } from '@/components/hero'
 import { SocialProof } from '@/components/social-proof'
 import { ProblemSolution } from '@/components/problem-solution'
 import { HowItWorks } from '@/components/how-it-works'
+import { GitHistoryShowcase } from '@/components/git-history-showcase'
 import { PersonaShowcase } from '@/components/persona-showcase'
 import { FeaturesGrid } from '@/components/features-grid'
 import { Architecture } from '@/components/architecture'
@@ -28,6 +29,9 @@ export default function Home() {
 
       {/* How it works */}
       <HowItWorks />
+
+      {/* Example git history rewritten by personas */}
+      <GitHistoryShowcase />
 
       {/* Persona showcase */}
       <PersonaShowcase />

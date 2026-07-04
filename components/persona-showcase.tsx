@@ -79,7 +79,7 @@ export function PersonaShowcase({ onPersonaSelect }: PersonaShowcaseProps) {
             className="text-4xl sm:text-5xl font-bold tracking-tight text-balance text-foreground"
             style={{ fontFamily: 'var(--font-space-grotesk)' }}
           >
-            30 personas.{' '}
+            40 personas.{' '}
             <span className="text-amber">One extension.</span>
           </h2>
         </motion.div>
