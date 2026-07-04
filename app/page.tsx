@@ -1,10 +1,11 @@
 import { Nav } from '@/components/nav'
 import { Hero } from '@/components/hero'
+import { WhoWroteThis } from '@/components/who-wrote-this'
 import { SocialProof } from '@/components/social-proof'
 import { ProblemSolution } from '@/components/problem-solution'
 import { HowItWorks } from '@/components/how-it-works'
 import { GitHistoryShowcase } from '@/components/git-history-showcase'
-import { PersonaShowcase } from '@/components/persona-showcase'
+import { PersonaTeaser } from '@/components/persona-teaser'
 import { FeaturesGrid } from '@/components/features-grid'
 import { Architecture } from '@/components/architecture'
 import { Install } from '@/components/install'
@@ -21,6 +22,9 @@ export default function Home() {
       {/* Hero */}
       <Hero />
 
+      {/* Interactive demo: same commit, six personas */}
+      <WhoWroteThis />
+
       {/* Social proof strip */}
       <SocialProof />
 
@@ -33,8 +37,8 @@ export default function Home() {
       {/* Example git history rewritten by personas */}
       <GitHistoryShowcase />
 
-      {/* Persona showcase */}
-      <PersonaShowcase />
+      {/* Curated persona teaser — full list lives on /personas */}
+      <PersonaTeaser />
 
       {/* Features grid */}
       <FeaturesGrid />

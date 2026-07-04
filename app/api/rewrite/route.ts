@@ -5,7 +5,7 @@ import { buildPromptVariables, parseRewriteRequestBody } from '@/lib/rewrite-api
 export const runtime = 'nodejs'
 
 const DEFAULT_PROMPT_ID = 'pmpt_6a47dda639808194877bc3e2d961224307ddfd2442c27bfb'
-const DEFAULT_PROMPT_VERSION = '20'
+const DEFAULT_PROMPT_VERSION = '21'
 
 export async function POST(request: Request) {
   let rawBody: unknown

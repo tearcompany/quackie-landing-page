@@ -63,11 +63,7 @@ export function Hero() {
             transition={{ duration: 0.6, ease: 'easeOut' }}
             className="flex flex-col gap-6"
           >
-            {/* Version badges */}
             <div className="flex flex-wrap items-center gap-2">
-              <span className="px-2.5 py-1 rounded-md text-xs font-mono bg-muted text-muted-foreground border border-white/[0.06]">
-                v0.1.0 MVP
-              </span>
               <span className="px-2.5 py-1 rounded-md text-xs font-mono bg-muted text-muted-foreground border border-white/[0.06]">
                 VS Code &amp; Cursor
               </span>
@@ -81,9 +77,17 @@ export function Hero() {
               className="text-5xl sm:text-6xl lg:text-[64px] font-bold leading-[1.08] tracking-tight text-balance text-foreground"
               style={{ fontFamily: 'var(--font-space-grotesk)' }}
             >
-              Your commits.{' '}
-              <span className="text-amber">Their personality.</span>
+              Git commits{' '}
+              <span className="text-amber">with personality.</span>
             </h1>
+
+            {/* Tagline */}
+            <p
+              className="text-sm uppercase tracking-widest text-muted-foreground/60 -mt-3"
+              style={{ fontFamily: 'var(--font-space-grotesk)' }}
+            >
+              Write once. Quack forever.
+            </p>
 
             {/* Subheadline */}
             <p
@@ -97,26 +101,29 @@ export function Hero() {
             <p
               className="font-mono text-sm text-teal bg-teal/5 border border-teal/15 rounded-md px-3 py-2.5 inline-block"
             >
-              Install once. Pick a persona. Type{' '}
-              <span className="text-foreground/80">fix validation</span> — get{' '}
+              Install once. Pick a persona. Type{' '}<br/>
+              <span className="text-foreground/80">fix validation</span> — get{' '}<br/>
               <span className="text-amber">🐄 fix: convince validation some manners</span>
             </p>
 
             {/* CTAs */}
             <div className="flex flex-wrap gap-3 pt-1">
               <a
-                href="#install"
+                href="/quackie-0.2.0.vsix"
+                download
                 className="flex items-center gap-2 px-5 py-3 rounded-md text-sm font-semibold bg-amber hover:bg-amber/90 transition-colors glow-amber-sm"
                 style={{ color: '#0a0a0f', fontFamily: 'var(--font-space-grotesk)' }}
               >
-                Install for VS Code
+                Download
               </a>
               <a
-                href="#personas"
+                href="https://marketplace.visualstudio.com/items?itemName=Quackie.quackie"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="flex items-center gap-2 px-5 py-3 rounded-md text-sm font-medium border border-white/10 text-foreground/80 hover:text-foreground hover:border-white/20 transition-colors"
                 style={{ fontFamily: 'var(--font-space-grotesk)' }}
               >
-                See personas
+                Get on Marketplace
               </a>
             </div>
           </motion.div>

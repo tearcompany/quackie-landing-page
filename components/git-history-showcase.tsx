@@ -17,58 +17,58 @@ interface HistoryCommit {
 const commits: HistoryCommit[] = [
   {
     hash: 'f4a9e2b',
-    message: '👑 chore: crown the v1.0.0 release',
+    message: '👑 chore: crown v1.0.0 as the first stable release',
     persona: 'Queen',
     decoration: 'HEAD -> main, tag: v1.0.0',
   },
   {
     hash: 'c81d3f7',
-    message: '⛏️ docs: przestaw readme, żeby się czytało po śląsku',
+    message: '⛏️ docs: ogarnij README, żeby nie straszyło po staremu',
     persona: 'Hanys',
   },
   {
     hash: 'b52c9a0',
-    message: '🌪️ feat: summon a midnight theme from the abyss',
+    message: '🌪️ feat: summon dark mode from the void',
     persona: 'Chaos',
   },
   {
     hash: 'e903b1c',
-    message: '☕ revert: roll back the Friday fix before it bites again',
+    message: '☕ revert: back out the Friday hotfix before it teaches us more lessons',
     persona: 'Sleep-Deprived Senior',
   },
   {
     hash: 'a17f08d',
-    message: '🍺 fix(payment): stabilize the crash before it eats Friday',
+    message: '🍺 fix: patch the payment crash before it takes the weekend hostage',
     persona: 'Friday Deploy Survivor',
   },
   {
     hash: 'd6e4c25',
-    message: '🤠 feat: ship checkout before the demo coughs up blockers',
+    message: '🤠 feat: ship the checkout page in time for the demo',
     persona: 'Startup Cowboy',
   },
   {
     hash: '92b7f4e',
-    message: '🦥 chore: slowly nudge the dependencies forward',
+    message: '🦥 chore: eventually nudge the dependencies forward',
     persona: 'Sloth',
   },
   {
     hash: '7c3a812',
-    message: '🐄 refactor(payment): untangle billing into a service',
+    message: '🐄 refactor: untangle payment logic into its own service',
     persona: 'Moo',
   },
   {
     hash: '4f19d6b',
-    message: '💀 fix(auth): stop the void from swallowing empty passwords',
+    message: '💀 fix: let empty passwords fail without taking auth down with them',
     persona: 'Doom',
   },
   {
     hash: '8e5b03a',
-    message: '🦆 feat(auth): apparently users need a login form',
+    message: '🦆 feat: apparently we need a user login form',
     persona: 'Duck',
   },
   {
     hash: '1a2f9c4',
-    message: '🧙 chore: the foundations have been quietly laid',
+    message: '🧙 chore: lay the first stones of the realm',
     persona: 'Gandalf',
   },
 ]

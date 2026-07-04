@@ -189,7 +189,7 @@ export function Install() {
           {/* CTAs */}
           <div className="flex flex-wrap justify-center gap-3 mt-8">
             <a
-              href="#"
+              href="https://github.com/tearcompany/quackie"
               className="flex items-center gap-2 px-5 py-3 rounded-md text-sm font-semibold bg-foreground/5 border border-white/10 text-foreground hover:bg-foreground/10 transition-colors"
               style={{ fontFamily: 'var(--font-space-grotesk)' }}
             >
@@ -197,7 +197,8 @@ export function Install() {
               View on GitHub
             </a>
             <a
-              href="#"
+              href="https://github.com/tearcompany/quackie/blob/main/README.md"
+              target="_blank"
               className="flex items-center gap-2 px-5 py-3 rounded-md text-sm font-medium border border-white/10 text-muted-foreground hover:text-foreground transition-colors"
               style={{ fontFamily: 'var(--font-space-grotesk)' }}
             >
