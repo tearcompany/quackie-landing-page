@@ -40,8 +40,8 @@ const features = [
   },
   {
     icon: Plug,
-    title: 'Pluggable rewrite engine',
-    body: 'RewriteService interface — swap mock for real LLM backend when ready.',
+    title: 'Hosted rewrite',
+    body: 'Quackie backend handles the rewrite — no API key in your editor.',
   },
   {
     icon: GitBranch,

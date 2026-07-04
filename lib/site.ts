@@ -18,3 +18,7 @@ export const OG_IMAGE = {
 export const SITE_DESCRIPTION =
   'Quackie is a VS Code and Cursor extension that rewrites your Git commit messages through 40 bundled personas. Install once. Pick a persona. Zero workspace setup.'
 export const TWITTER_HANDLE = '@quackie_dev'
+
+export const QUACKIE_VSIX_PATH = '/quackie-0.2.4.vsix'
+export const QUACKIE_MARKETPLACE_URL =
+  'https://marketplace.visualstudio.com/items?itemName=Quackie.quackie'

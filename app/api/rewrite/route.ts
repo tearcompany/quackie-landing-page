@@ -1,25 +1,78 @@
 import { NextResponse } from 'next/server'
 import OpenAI from 'openai'
+import { getSigningSecret, verifyInstallToken } from '@/lib/install-token'
 import { buildPromptVariables, parseRewriteRequestBody } from '@/lib/rewrite-api'
-import { checkRateLimit, getClientKey } from '@/lib/rate-limit'
+import {
+  RATE_LIMITS,
+  checkRateLimit,
+  getClientKey,
+  rateLimitResponseHeaders,
+} from '@/lib/rate-limit'
+import { shouldRejectDailyBudget } from '@/lib/spend-guard'
 
 export const runtime = 'nodejs'
 
 const DEFAULT_PROMPT_ID = 'pmpt_6a47dda639808194877bc3e2d961224307ddfd2442c27bfb'
 const DEFAULT_PROMPT_VERSION = '21'
 
+function getBearerToken(request: Request): string | undefined {
+  const header = request.headers.get('authorization')
+  if (!header?.toLowerCase().startsWith('bearer ')) {
+    return undefined
+  }
+  const token = header.slice(7).trim()
+  return token.length > 0 ? token : undefined
+}
+
 export async function POST(request: Request) {
+  const secret = getSigningSecret()
+  if (!secret) {
+    return NextResponse.json({ error: 'Server is missing QUACKIE_SIGNING_SECRET' }, { status: 500 })
+  }
+
+  const token = getBearerToken(request)
+  if (!token) {
+    return NextResponse.json({ error: 'Missing install token' }, { status: 401 })
+  }
+
+  const verified = verifyInstallToken(token, secret)
+  if (!verified.ok) {
+    const message =
+      verified.reason === 'expired'
+        ? 'Install token expired'
+        : 'Invalid install token'
+    return NextResponse.json({ error: message }, { status: 401 })
+  }
+
+  const installId = verified.payload.installId
+
   const clientKey = getClientKey(request)
-  const rateLimit = checkRateLimit(clientKey)
-  if (!rateLimit.allowed) {
+  const ipLimit = checkRateLimit('rewrite-ip', clientKey, RATE_LIMITS.rewrite)
+  if (!ipLimit.allowed) {
     return NextResponse.json(
       { error: 'Too many requests. Please slow down and try again shortly.' },
       {
         status: 429,
-        headers: rateLimit.retryAfterSeconds
-          ? { 'Retry-After': String(rateLimit.retryAfterSeconds) }
-          : undefined,
+        headers: rateLimitResponseHeaders(ipLimit),
       },
+    )
+  }
+
+  const installLimit = checkRateLimit('rewrite-install', installId, RATE_LIMITS.rewrite)
+  if (!installLimit.allowed) {
+    return NextResponse.json(
+      { error: 'Too many requests. Please slow down and try again shortly.' },
+      {
+        status: 429,
+        headers: rateLimitResponseHeaders(installLimit),
+      },
+    )
+  }
+
+  if (shouldRejectDailyBudget()) {
+    return NextResponse.json(
+      { error: 'Quackie is temporarily unavailable. Please try again later.' },
+      { status: 503 },
     )
   }
 

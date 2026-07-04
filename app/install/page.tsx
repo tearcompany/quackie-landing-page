@@ -9,7 +9,7 @@ import { Footer } from '@/components/footer'
 export const metadata: Metadata = {
   title: 'Install Quackie',
   description:
-    'Step-by-step install guide for the Quackie VS Code extension: VSIX package or development build, plus requirements and settings reference.',
+    'Download Quackie for VS Code and Cursor — VSIX or Marketplace. Pick a persona and start rewriting commits.',
   keywords: [
     'install vscode extension',
     'quackie vsix',
@@ -20,15 +20,15 @@ export const metadata: Metadata = {
     canonical: '/install',
   },
   openGraph: {
-    title: 'Install Quackie — VS Code & Cursor Setup',
-    description: 'Two ways to install Quackie. Both take under two minutes.',
+    title: 'Install Quackie — VS Code & Cursor',
+    description: 'Download Quackie — VSIX or Marketplace. Install once, pick a persona.',
     url: '/install',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Install Quackie — VS Code & Cursor Setup',
-    description: 'Two ways to install Quackie. Both take under two minutes.',
+    title: 'Install Quackie — VS Code & Cursor',
+    description: 'Download Quackie — VSIX or Marketplace. Install once, pick a persona.',
   },
 }
 
@@ -40,7 +40,7 @@ export default function InstallPage() {
       <PageHero
         eyebrow="Install"
         title="Get Quackie running in under two minutes"
-        description="Install the VSIX package or run Quackie from source. Requires VS Code 1.85+ or Cursor with the built-in Git extension enabled."
+        description="Download from the site or install from the Marketplace. Requires VS Code 1.85+ or Cursor with the built-in Git extension enabled."
       />
       <Install />
       <SettingsReference />

@@ -31,11 +31,6 @@ export const faqs: FaqItem[] = [
     a: 'Not if you manually changed a generated commit. Quackie enters a frozen state until you clear the input or trigger Rewrite Now.',
   },
   {
-    id: 'uses-ai',
-    q: 'Does it use AI right now?',
-    a: 'v0.1 ships with a deterministic mock rewrite service. Real LLM backend is planned for v0.2.',
-  },
-  {
     id: 'conventional-commits',
     q: 'Conventional Commits — preserved?',
     a: 'Yes. Semantic meaning and format are preserved. One emoji prefix is added. Max 72 characters enforced.',

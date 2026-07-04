@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { personas } from '@/lib/personas'
+import { QUACKIE_MARKETPLACE_URL, QUACKIE_VSIX_PATH } from '@/lib/site'
 
 const demoPersona = personas.find((p) => p.id === 'moo')!
 
@@ -109,7 +110,7 @@ export function Hero() {
             {/* CTAs */}
             <div className="flex flex-wrap gap-3 pt-1">
               <a
-                href="/quackie-0.2.3.vsix"
+                href={QUACKIE_VSIX_PATH}
                 download
                 className="flex items-center gap-2 px-5 py-3 rounded-md text-sm font-semibold bg-amber hover:bg-amber/90 transition-colors glow-amber-sm"
                 style={{ color: '#0a0a0f', fontFamily: 'var(--font-space-grotesk)' }}
@@ -117,7 +118,7 @@ export function Hero() {
                 Download
               </a>
               <a
-                href="https://marketplace.visualstudio.com/items?itemName=Quackie.quackie"
+                href={QUACKIE_MARKETPLACE_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 px-5 py-3 rounded-md text-sm font-medium border border-white/10 text-foreground/80 hover:text-foreground hover:border-white/20 transition-colors"
@@ -211,12 +212,6 @@ function VSCodeMockup({
                 <span>convince validation some manners</span>
               </motion.span>
             )}
-          </div>
-          {/* Label */}
-          <div className="absolute top-2 right-2.5">
-            <span className="text-[10px] text-muted-foreground/40 font-mono">
-              {phase === 'typing' ? 'typing...' : 'quackie rewrote'}
-            </span>
           </div>
         </div>
 

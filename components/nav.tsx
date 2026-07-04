@@ -9,7 +9,6 @@ const navLinks = [
   { label: 'Personas', href: '/personas' },
   { label: 'How it works', href: '/how-it-works' },
   { label: 'Install', href: '/install' },
-  { label: 'Roadmap', href: '/roadmap' },
   { label: 'FAQ', href: '/faq' },
 ]
 

@@ -10,7 +10,6 @@ import { FeaturesGrid } from '@/components/features-grid'
 import { Architecture } from '@/components/architecture'
 import { Install } from '@/components/install'
 import { SettingsReference } from '@/components/settings-reference'
-import { Roadmap } from '@/components/roadmap'
 import { FAQ } from '@/components/faq'
 import { Footer } from '@/components/footer'
 
@@ -51,9 +50,6 @@ export default function Home() {
 
       {/* Settings reference */}
       <SettingsReference />
-
-      {/* Roadmap */}
-      <Roadmap />
 
       {/* FAQ */}
       <FAQ />

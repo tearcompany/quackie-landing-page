@@ -1,43 +1,74 @@
 /**
- * Best-effort in-memory rate limiter, keyed by client IP.
+ * Best-effort in-memory rate limiter.
  *
- * This is per-instance, not shared across the serverless fleet — on Vercel,
- * each warm instance keeps its own counters, so the real ceiling under load
- * is roughly (instance count × MAX_REQUESTS_PER_WINDOW), not a hard global
- * cap. That's still enough to stop a single runaway client or a naive
- * script, but it is NOT a substitute for a durable, shared store (Vercel KV
- * / Upstash Redis) once traffic is high enough to run many instances.
+ * Buckets are keyed by (bucketName, clientKey). This is per-instance, not
+ * shared across the serverless fleet — on Vercel, each warm instance keeps its
+ * own counters, so the real ceiling under load is roughly
+ * (instance count × max per window), not a hard global cap. That's still
+ * enough to stop a single runaway client or a naive script, but it is NOT a
+ * substitute for a durable, shared store (Vercel KV / Upstash Redis) once
+ * traffic is high enough to run many instances.
+ *
+ * The extension is open-source — client-side secrets cannot be trusted.
+ * Rate limits here protect the hosted API (register + rewrite) by raising the
+ * cost of abuse; they do not cryptographically authenticate the client.
  */
 interface RateLimitEntry {
   count: number
   windowStart: number
 }
 
-const WINDOW_MS = 60_000
-const MAX_REQUESTS_PER_WINDOW = 20
-const MAX_TRACKED_KEYS = 5000
-
-const buckets = new Map<string, RateLimitEntry>()
+export interface RateLimitOptions {
+  windowMs: number
+  max: number
+}
 
 export interface RateLimitResult {
   allowed: boolean
   retryAfterSeconds?: number
 }
 
-export function checkRateLimit(key: string): RateLimitResult {
-  const now = Date.now()
-  const entry = buckets.get(key)
+const MAX_TRACKED_KEYS_PER_BUCKET = 5000
 
-  if (!entry || now - entry.windowStart >= WINDOW_MS) {
-    if (buckets.size >= MAX_TRACKED_KEYS) {
-      buckets.clear()
+const buckets = new Map<string, Map<string, RateLimitEntry>>()
+
+export const RATE_LIMITS = {
+  register: { windowMs: 60 * 60 * 1000, max: 5 },
+  rewrite: { windowMs: 60_000, max: 20 },
+} as const
+
+function bucketKey(bucket: string, key: string): string {
+  return `${bucket}:${key}`
+}
+
+function getBucketMap(bucket: string): Map<string, RateLimitEntry> {
+  let map = buckets.get(bucket)
+  if (!map) {
+    map = new Map()
+    buckets.set(bucket, map)
+  }
+  return map
+}
+
+export function checkRateLimit(
+  bucket: string,
+  key: string,
+  options: RateLimitOptions,
+): RateLimitResult {
+  const now = Date.now()
+  const map = getBucketMap(bucket)
+  const entry = map.get(key)
+
+  if (!entry || now - entry.windowStart >= options.windowMs) {
+    if (map.size >= MAX_TRACKED_KEYS_PER_BUCKET) {
+      map.clear()
     }
-    buckets.set(key, { count: 1, windowStart: now })
+    map.set(key, { count: 1, windowStart: now })
     return { allowed: true }
   }
 
-  if (entry.count >= MAX_REQUESTS_PER_WINDOW) {
-    const retryAfterSeconds = Math.ceil((entry.windowStart + WINDOW_MS - now) / 1000)
+  if (entry.count >= options.max) {
+    const retryAfterSeconds = Math.ceil((entry.windowStart + options.windowMs - now) / 1000)
     return { allowed: false, retryAfterSeconds }
   }
 
@@ -52,3 +83,13 @@ export function getClientKey(request: Request): string {
   }
   return request.headers.get('x-real-ip') ?? 'unknown'
 }
+
+export function rateLimitResponseHeaders(result: RateLimitResult): Record<string, string> | undefined {
+  if (!result.retryAfterSeconds) {
+    return undefined
+  }
+  return { 'Retry-After': String(result.retryAfterSeconds) }
+}
+
+// Kept for tests or callers that used the composite key helper.
+export { bucketKey }
