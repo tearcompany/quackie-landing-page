@@ -4,7 +4,7 @@ import OpenAI from 'openai'
 export const runtime = 'nodejs'
 
 const DEFAULT_PROMPT_ID = 'pmpt_6a47dda639808194877bc3e2d961224307ddfd2442c27bfb'
-const DEFAULT_PROMPT_VERSION = '15'
+const DEFAULT_PROMPT_VERSION = '16'
 const MAX_TEXT_LENGTH = 2000
 
 interface RewriteRequestBody {
