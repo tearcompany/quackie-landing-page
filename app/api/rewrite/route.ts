@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import OpenAI from 'openai'
 import { buildPromptVariables, parseRewriteRequestBody } from '@/lib/rewrite-api'
+import { checkRateLimit, getClientKey } from '@/lib/rate-limit'
 
 export const runtime = 'nodejs'
 
@@ -8,6 +9,20 @@ const DEFAULT_PROMPT_ID = 'pmpt_6a47dda639808194877bc3e2d961224307ddfd2442c27bfb
 const DEFAULT_PROMPT_VERSION = '21'
 
 export async function POST(request: Request) {
+  const clientKey = getClientKey(request)
+  const rateLimit = checkRateLimit(clientKey)
+  if (!rateLimit.allowed) {
+    return NextResponse.json(
+      { error: 'Too many requests. Please slow down and try again shortly.' },
+      {
+        status: 429,
+        headers: rateLimit.retryAfterSeconds
+          ? { 'Retry-After': String(rateLimit.retryAfterSeconds) }
+          : undefined,
+      },
+    )
+  }
+
   let rawBody: unknown
 
   try {
@@ -47,6 +62,14 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ text })
   } catch (error) {
+    const status = (error as { status?: number } | undefined)?.status
+    if (status === 429) {
+      return NextResponse.json(
+        { error: 'Quackie is experiencing high demand right now. Please try again shortly.' },
+        { status: 502 },
+      )
+    }
+
     const message = error instanceof Error ? error.message : 'Unknown error calling OpenAI'
     return NextResponse.json({ error: message }, { status: 502 })
   }
