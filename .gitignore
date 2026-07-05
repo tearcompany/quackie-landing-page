@@ -15,3 +15,5 @@ node_modules
 lib-tests/
 .DS_Store
 .vercel
+
+tsconfig.tsbuildinfo

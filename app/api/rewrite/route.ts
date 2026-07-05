@@ -1,7 +1,8 @@
 import { NextResponse } from 'next/server'
 import OpenAI from 'openai'
 import { getSigningSecret, verifyInstallToken } from '@/lib/install-token'
-import { buildPromptVariables, parseRewriteRequestBody } from '@/lib/rewrite-api'
+import { buildPromptVariables, parseRewriteRequestBody, type RewriteRequestBody } from '@/lib/rewrite-api'
+import { getCanonicalPersona } from '@/lib/personas-server'
 import {
   RATE_LIMITS,
   checkRateLimit,
@@ -10,10 +11,36 @@ import {
 } from '@/lib/rate-limit'
 import { shouldRejectDailyBudget } from '@/lib/spend-guard'
 
+/**
+ * Prefer this server's own canonical persona data over whatever the client
+ * sent. This is what makes persona hotfixes possible without a new VSIX:
+ * fix the wording here and redeploy, and every installed extension picks it
+ * up on its next request — no client update needed.
+ *
+ * Falls back to the client-supplied fields when the persona id isn't in the
+ * canonical set yet (e.g. an older/newer extension build referencing a
+ * persona this deployment hasn't synced), so requests degrade gracefully
+ * instead of failing outright during a rollout.
+ */
+function resolvePersonaFields(body: RewriteRequestBody): RewriteRequestBody {
+  const canonical = getCanonicalPersona(body.persona)
+  if (!canonical) {
+    return body
+  }
+
+  return {
+    ...body,
+    personaName: canonical.name,
+    personaEmoji: canonical.emoji,
+    personaSystemPrompt: canonical.systemPrompt,
+    personaMetadata: canonical.metadata,
+  }
+}
+
 export const runtime = 'nodejs'
 
 const DEFAULT_PROMPT_ID = 'pmpt_6a47dda639808194877bc3e2d961224307ddfd2442c27bfb'
-const DEFAULT_PROMPT_VERSION = '21'
+const DEFAULT_PROMPT_VERSION = '22'
 
 function getBearerToken(request: Request): string | undefined {
   const header = request.headers.get('authorization')
@@ -84,13 +111,15 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Invalid JSON body' }, { status: 400 })
   }
 
-  const body = parseRewriteRequestBody(rawBody)
-  if (!body) {
+  const parsedBody = parseRewriteRequestBody(rawBody)
+  if (!parsedBody) {
     return NextResponse.json(
       { error: 'Expected { persona: string, type: string, text: string }' },
       { status: 400 },
     )
   }
+
+  const body = resolvePersonaFields(parsedBody)
 
   const apiKey = process.env.OPENAI_API_KEY
   if (!apiKey) {

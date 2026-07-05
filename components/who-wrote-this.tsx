@@ -23,7 +23,7 @@ const demoPersonas: DemoPersona[] = [
     id: 'repository-guardian',
     emoji: '🛡️',
     name: 'Repository Guardian',
-    message: 'fix: guard the button from submitting twice on click',
+    message: 'fix(button): prevent double submits when clicks get impatient',
   },
   {
     id: 'moo',
@@ -35,7 +35,7 @@ const demoPersonas: DemoPersona[] = [
     id: 'rubber-duck',
     emoji: '🔍',
     name: 'Rubber Duck',
-    message: 'fix: explain the button so it stops submitting twice',
+    message: "fix: explain the button's two-click habit out of existence",
   },
   {
     id: 'sleep-deprived-senior',
@@ -47,7 +47,7 @@ const demoPersonas: DemoPersona[] = [
     id: 'tech-debt-slayer',
     emoji: '🪓',
     name: 'Tech Debt Slayer',
-    message: 'fix: stop the button from firing twice on one click',
+    message: 'fix(button): stop the double-submit landmine on click',
   },
   {
     id: 'startup-cowboy',

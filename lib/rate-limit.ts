@@ -54,8 +54,8 @@ export function checkRateLimit(
   bucket: string,
   key: string,
   options: RateLimitOptions,
+  now = Date.now(),
 ): RateLimitResult {
-  const now = Date.now()
   const map = getBucketMap(bucket)
   const entry = map.get(key)
 
@@ -93,3 +93,8 @@ export function rateLimitResponseHeaders(result: RateLimitResult): Record<string
 
 // Kept for tests or callers that used the composite key helper.
 export { bucketKey }
+
+/** Test helper — not used in production routes. */
+export function resetRateLimitForTests(): void {
+  buckets.clear()
+}
